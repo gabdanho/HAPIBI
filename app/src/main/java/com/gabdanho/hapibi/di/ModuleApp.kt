@@ -1,6 +1,7 @@
 package com.gabdanho.hapibi.di
 
 import android.content.Context
+import com.gabdanho.hapibi.BuildConfig
 import com.gabdanho.hapibi.data.local.datasource.UserTokenDataProvider
 import com.gabdanho.hapibi.data.local.repository.UserTokenDataRepository
 import com.gabdanho.hapibi.data.local.repository.UserTokenDataRepositoryImpl
@@ -16,6 +17,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.FileInputStream
+import java.util.Properties
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -75,7 +78,7 @@ object ModuleApp {
     @Singleton
     @Named("openAIApi")
     fun provideOpenAIRetrofit(): Retrofit {
-        val apiKey = "19004cab1b4f40e2be448401e3857b48" // TODO()
+        var apiKey = BuildConfig.AI_API_KEY
 
         val gson = GsonBuilder()
             .setLenient()

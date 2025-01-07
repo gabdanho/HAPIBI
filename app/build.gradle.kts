@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -21,6 +23,15 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties()
+        val secretsFile = rootProject.file("secrets.properties")
+        if (secretsFile.exists()) {
+            properties.load(secretsFile.inputStream())
+        }
+        val apiKey = properties.getProperty("aiApiKey") ?: "default_key"
+
+        buildConfigField("String", "AI_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -42,6 +53,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.13"

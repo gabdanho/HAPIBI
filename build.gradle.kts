@@ -11,12 +11,20 @@ plugins {
 }
 
 vkidManifestPlaceholders {
-    val secretsValuesFile = rootProject.file("secrets.properties")
-    val secretsProperties = Properties()
-    secretsProperties.load(FileInputStream(secretsValuesFile))
+    var clientId: String
+    var clientSecret: String
 
-    val clientId = secretsProperties.getProperty("clientId")
-    val clientSecret = secretsProperties.getProperty("clientSecret")
+    try {
+        val secretsValuesFile = rootProject.file("secrets.properties")
+        val secretsProperties = Properties()
+        secretsProperties.load(FileInputStream(secretsValuesFile))
+
+        clientId = secretsProperties.getProperty("clientId")
+        clientSecret = secretsProperties.getProperty("clientSecret")
+    } catch (e: Exception) {
+        clientId = "nothing"
+        clientSecret = "nothing"
+    }
 
     init(
         clientId = clientId,

@@ -1,15 +1,12 @@
 package com.gabdanho.hapibi.ui.screens
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -46,7 +43,7 @@ fun AuthScreen(
             signInAnotherAccountButtonEnabled = true,
             style = OneTapStyle.system(context),
             authParams = VKIDAuthUiParams {
-                scopes = setOf("vkid.personal_info", "friends")
+                scopes = setOf("vkid.personal_info", "friends", "messages")
             },
             modifier = Modifier.padding(horizontal = 8.dp)
         )

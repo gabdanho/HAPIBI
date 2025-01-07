@@ -1,5 +1,6 @@
 package com.gabdanho.hapibi.ui.custom
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -11,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.gabdanho.hapibi.ui.theme.AzureA100
 
 @Composable
-fun VkButton(
+fun VkOutlinedButton(
     name: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -19,9 +20,10 @@ fun VkButton(
     Button(
         onClick = onClick,
         shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(4.dp, color = AzureA100),
         colors = ButtonDefaults.buttonColors(
-            containerColor = AzureA100,
-            contentColor = Color.White,
+            containerColor = Color.White,
+            contentColor = Color.Black,
         ),
         modifier = modifier
     ) {

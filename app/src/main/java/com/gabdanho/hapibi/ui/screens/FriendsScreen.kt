@@ -16,36 +16,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.gabdanho.hapibi.ui.custom.FriendCard
-import com.gabdanho.hapibi.ui.custom.VkButton
 import com.gabdanho.hapibi.ui.model.UserData
 import com.gabdanho.hapibi.ui.custom.VkLogoutButton
 
 @Composable
 fun FriendsScreen(
+    modifier: Modifier = Modifier,
     users: List<UserData>,
     onLogoutClick: () -> Unit,
-    onCongratButtonClick: (UserData) -> Unit,
-    modifier: Modifier = Modifier
+    onCongratButtonClick: (UserData) -> Unit
 ) {
     Scaffold(
-        topBar = { TopScreenBar(onLogoutClick) },
+        topBar = { TopScreenBar(onLogoutClick = onLogoutClick) },
         modifier = modifier.windowInsetsPadding(WindowInsets.systemBars)
     ) { innerPadding ->
         FriendsList(
-            users,
-            onCongratButtonClick,
-            Modifier.padding(innerPadding)
+            users = users,
+            onClick = onCongratButtonClick,
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }
 
 @Composable
 fun FriendsList(
+    modifier: Modifier = Modifier,
     users: List<UserData>,
-    onClick: (UserData) -> Unit,
-    modifier: Modifier = Modifier
+    onClick: (UserData) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
@@ -64,15 +62,15 @@ fun FriendsList(
 
 @Composable
 fun TopScreenBar(
-    onLogoutClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLogoutClick: () -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End,
         modifier = modifier.fillMaxWidth()
     ) {
-        VkLogoutButton(onLogoutClick)
+        VkLogoutButton(onClick = onLogoutClick)
     }
 }
 

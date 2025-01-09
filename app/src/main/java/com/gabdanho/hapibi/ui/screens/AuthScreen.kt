@@ -19,9 +19,9 @@ import com.vk.id.onetap.compose.onetap.OneTap
 
 @Composable
 fun AuthScreen(
+    modifier: Modifier = Modifier,
     context: Context,
-    viewModel: HapibiViewModel,
-    modifier: Modifier = Modifier
+    viewModel: HapibiViewModel
 ) {
     Column(
         modifier = modifier.fillMaxSize(),

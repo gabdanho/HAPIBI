@@ -1,10 +1,7 @@
 package com.gabdanho.hapibi.ui.screens
 
 
-import android.content.ClipboardManager
-import android.content.Context
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,7 +26,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +40,7 @@ import com.gabdanho.hapibi.ui.model.UserData
 
 @Composable
 fun SelectedFriendScreen(
+    modifier: Modifier = Modifier,
     userData: UserData,
     congratMessage: String,
     isGeneratingMessage: Boolean,
@@ -63,21 +60,28 @@ fun SelectedFriendScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(innerPadding)
         ) {
-            FriendCard(userData, modifier = Modifier.padding(top = 16.dp))
-            CongratPromptField(userData.firstName, copyCongrat, generateCongrat, changeCongratText, congratMessage, isGeneratingMessage)
+            FriendCard(user = userData, modifier = modifier.padding(top = 16.dp))
+            CongratPromptField(
+                firstName = userData.firstName,
+                copyCongrat = copyCongrat,
+                generateCongrat = generateCongrat,
+                changeCongratText = changeCongratText,
+                congratMessage = congratMessage,
+                isGeneratingMessage = isGeneratingMessage
+            )
         }
     }
 }
 
 @Composable
 fun CongratPromptField(
+    modifier: Modifier = Modifier,
     firstName: String,
     copyCongrat: (String) -> Unit,
     generateCongrat: (CongratPrompt) -> Unit,
     changeCongratText: (String) -> Unit,
     congratMessage: String,
-    isGeneratingMessage: Boolean,
-    modifier: Modifier = Modifier
+    isGeneratingMessage: Boolean
 ) {
     val parameterNames = listOf(
         "Какой праздник:",
@@ -139,7 +143,11 @@ fun CongratPromptField(
         }
         if (!isGeneratingMessage && congratMessage != "") {
             item {
-                PromptResultScreen(congratMessage, changeCongratText, copyCongrat)
+                PromptResultScreen(
+                    message = congratMessage,
+                    changeCongratText = changeCongratText,
+                    copyCongrat = copyCongrat
+                )
             }
         }
         if (isGeneratingMessage) {
@@ -159,11 +167,11 @@ fun CongratPromptField(
 
 @Composable
 fun PromptParameter(
+    modifier: Modifier = Modifier,
     name: String,
     value: String,
     onValueChange: (String) -> Unit,
-    isError: Boolean = false,
-    modifier: Modifier = Modifier
+    isError: Boolean = false
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -196,13 +204,14 @@ fun PromptParameter(
 
 @Composable
 fun PromptResultScreen(
+    modifier: Modifier = Modifier,
     message: String,
     changeCongratText: (String) -> Unit,
     copyCongrat: (String) -> Unit
 ) {
     var fixCongrat by remember { mutableStateOf("") }
 
-    Column {
+    Column(modifier = modifier) {
         Card(
             Modifier.padding(16.dp),
             colors = CardDefaults.cardColors(

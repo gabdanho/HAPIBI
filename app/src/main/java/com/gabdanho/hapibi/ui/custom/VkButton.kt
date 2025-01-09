@@ -12,9 +12,9 @@ import com.gabdanho.hapibi.ui.theme.AzureA100
 
 @Composable
 fun VkButton(
+    modifier: Modifier = Modifier,
     name: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,

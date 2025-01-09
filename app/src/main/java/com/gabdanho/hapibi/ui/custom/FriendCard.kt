@@ -17,10 +17,10 @@ import com.gabdanho.hapibi.ui.model.UserData
 
 @Composable
 fun FriendCard(
+    modifier: Modifier = Modifier,
     user: UserData,
     isShowButton: Boolean = false,
-    onClick: (UserData) -> Unit = { },
-    modifier: Modifier = Modifier
+    onClick: (UserData) -> Unit = { }
 ) {
     Card(
         modifier = modifier
@@ -36,7 +36,7 @@ fun FriendCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            VkProfileImage(user.imageUrl)
+            VkProfileImage(imageUrl = user.imageUrl)
             Text(
                 text = "${user.firstName} ${user.lastName}",
                 style = MaterialTheme.typography.headlineSmall

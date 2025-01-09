@@ -2,9 +2,6 @@ package com.gabdanho.hapibi.ui.mappers
 
 import com.gabdanho.hapibi.data.remote.model.Friend
 import com.gabdanho.hapibi.ui.model.UserData
-import java.text.DateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 fun Friend.toUserData(): UserData {
     return UserData(

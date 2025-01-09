@@ -22,10 +22,10 @@ import com.gabdanho.hapibi.ui.screens.SelectedFriendScreen
 
 @Composable
 fun HapibiNavGraph(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
     context: Context,
-    viewModel: HapibiViewModel = viewModel(),
-    modifier: Modifier = Modifier
+    viewModel: HapibiViewModel = viewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val message = uiState.value.message

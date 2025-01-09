@@ -14,8 +14,8 @@ import com.gabdanho.hapibi.ui.theme.AzureA100
 
 @Composable
 fun VkProfileImage(
-    imageUrl: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    imageUrl: String
 ) {
     AsyncImage(
         model = imageUrl,

@@ -19,8 +19,8 @@ import com.gabdanho.hapibi.ui.theme.AzureA100
 
 @Composable
 fun VkLogoutButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Box(
         modifier = modifier

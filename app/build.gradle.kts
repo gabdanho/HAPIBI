@@ -3,6 +3,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     id("vkid.manifest.placeholders")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
@@ -10,7 +11,7 @@ plugins {
 
 android {
     namespace = "com.gabdanho.hapibi"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.gabdanho.hapibi"
@@ -32,6 +33,15 @@ android {
         val apiKey = properties.getProperty("aiApiKey") ?: "default_key"
 
         buildConfigField("String", "AI_API_KEY", "\"$apiKey\"")
+
+        addManifestPlaceholders(
+            mapOf(
+                "VKIDClientID" to "52892833",
+                "VKIDClientSecret" to "LU4Yr9OIcWf2Tgy1sOiU", // Ваш защищенный ключ (client_secret).
+                "VKIDRedirectHost" to "vk.com", // Обычно используется vk.ru.
+                "VKIDRedirectScheme" to "vk52892833", // Должно быть vk{ID приложения}.
+            )
+        )
     }
 
     buildTypes {

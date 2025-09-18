@@ -109,7 +109,7 @@ class HapibiViewModel @Inject constructor(
             }
 
             val request = CompletionRequest(
-                model = "gpt-4o",
+                model = "gpt-4o-mini",
                 messages = listOf(
                     Message(
                         role = "system",
@@ -154,7 +154,7 @@ class HapibiViewModel @Inject constructor(
             }
 
             val request = CompletionRequest(
-                model = "gpt-4o",
+                model = "gpt-4o-mini",
                 messages = listOf(
                     Message(
                         role = "system",

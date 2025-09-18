@@ -1,7 +1,6 @@
 package com.gabdanho.hapibi.di
 
 import android.content.Context
-import com.gabdanho.hapibi.BuildConfig
 import com.gabdanho.hapibi.data.local.datasource.UserTokenDataProvider
 import com.gabdanho.hapibi.data.local.repository.UserTokenDataRepository
 import com.gabdanho.hapibi.data.local.repository.UserTokenDataRepositoryImpl
@@ -17,13 +16,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.FileInputStream
-import java.util.Properties
 import javax.inject.Named
 import javax.inject.Singleton
 
 private const val BASE_URL_VK = "https://api.vk.com"
-private const val BASE_URL_OPENAI = "https://api.aimlapi.com"
+private const val BASE_URL_OPENAI = "https://api.zukijourney.com/v1/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -78,7 +75,7 @@ object ModuleApp {
     @Singleton
     @Named("openAIApi")
     fun provideOpenAIRetrofit(): Retrofit {
-        var apiKey = BuildConfig.AI_API_KEY
+        val apiKey = "zu-b22684747c405ec01193a54729f39718"
 
         val gson = GsonBuilder()
             .setLenient()

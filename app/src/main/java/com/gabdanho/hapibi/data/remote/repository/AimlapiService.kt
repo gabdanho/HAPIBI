@@ -1,12 +1,10 @@
 package com.gabdanho.hapibi.data.remote.repository
 
 import retrofit2.http.Body
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface AimlapiService {
-    @POST("chat/completions")
-    @Headers("Content-Type: application/json")
+    @POST("/v1/chat/completions")
     suspend fun generateCongrat(
         @Body request: CompletionRequest
     ): CompletionResponse

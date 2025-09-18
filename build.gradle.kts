@@ -5,9 +5,10 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.compose.compiler) apply false
     id("vkid.manifest.placeholders") version "1.1.0" apply true
-    id("com.google.dagger.hilt.android") version "2.51.1" apply false
-    id("com.google.devtools.ksp") version "1.9.23-1.0.20"
+    id("com.google.dagger.hilt.android") version "2.57.1" apply false
+    id("com.google.devtools.ksp") version "2.2.10-2.0.2"
 }
 
 vkidManifestPlaceholders {
@@ -25,7 +26,6 @@ vkidManifestPlaceholders {
         clientId = "nothing"
         clientSecret = "nothing"
     }
-
     init(
         clientId = clientId,
         clientSecret = clientSecret,

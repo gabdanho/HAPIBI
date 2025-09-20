@@ -4,9 +4,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id("vkid.manifest.placeholders")
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.hilt.compiler)
+    alias(libs.plugins.vkid.manifest)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {

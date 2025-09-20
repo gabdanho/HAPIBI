@@ -14,13 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.gabdanho.hapibi.presentation.model.UserData
+import com.gabdanho.hapibi.presentation.model.Friend
 
 @Composable
 fun FriendCard(
-    user: UserData,
+    user: Friend,
     modifier: Modifier = Modifier,
-    onClick: (UserData) -> Unit = { },
+    onClick: (Friend) -> Unit = { },
     cardColors: CardColors = CardDefaults.cardColors(
         containerColor = Color.White,
         contentColor = Color.Black
@@ -43,9 +43,9 @@ fun FriendCard(
                 text = "${user.firstName} ${user.lastName}",
                 style = MaterialTheme.typography.headlineSmall
             )
-            if (user.birthDay.isNotBlank()) {
+            if (user.birthDayDate.isNotBlank()) {
                 Text(
-                    text = user.birthDay,
+                    text = user.birthDayDate,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(vertical = 16.dp)
                 )

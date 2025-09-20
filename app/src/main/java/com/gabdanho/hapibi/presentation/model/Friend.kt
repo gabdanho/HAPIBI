@@ -1,9 +1,9 @@
-package com.gabdanho.hapibi.ui.model
+package com.gabdanho.hapibi.presentation.model
 
-data class UserData(
+data class Friend(
     val id: Int = 0,
     val imageUrl: String = "",
     val firstName: String = "",
     val lastName: String = "",
-    val birthDay: String = ""
+    val birthDayDate: String = ""
 )

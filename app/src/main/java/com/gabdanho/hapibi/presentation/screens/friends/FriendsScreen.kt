@@ -1,4 +1,4 @@
-package com.gabdanho.hapibi.ui.screens
+package com.gabdanho.hapibi.presentation.screens.friends
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.gabdanho.hapibi.ui.custom.FriendCard
-import com.gabdanho.hapibi.ui.model.UserData
-import com.gabdanho.hapibi.ui.custom.VkLogoutButton
+import com.gabdanho.hapibi.presentation.component.FriendCard
+import com.gabdanho.hapibi.presentation.model.UserData
+import com.gabdanho.hapibi.presentation.component.VkLogoutButton
 
 @Composable
 fun FriendsScreen(

@@ -1,4 +1,4 @@
-package com.gabdanho.hapibi.ui.model
+package com.gabdanho.hapibi.presentation.model
 
 data class CongratPrompt(
     val holiday: String,

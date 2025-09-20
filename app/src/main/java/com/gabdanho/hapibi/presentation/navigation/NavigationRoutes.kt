@@ -1,4 +1,4 @@
-package com.gabdanho.hapibi.ui.navigation
+package com.gabdanho.hapibi.presentation.navigation
 
 enum class NavigationRoutes {
     AUTH, FRIENDS, SELECTED_FRIEND

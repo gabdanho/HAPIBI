@@ -1,4 +1,4 @@
-package com.gabdanho.hapibi.ui.custom
+package com.gabdanho.hapibi.presentation.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.gabdanho.hapibi.ui.model.UserData
+import com.gabdanho.hapibi.presentation.model.UserData
 
 @Composable
 fun FriendCard(

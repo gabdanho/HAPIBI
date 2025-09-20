@@ -1,4 +1,4 @@
-package com.gabdanho.hapibi
+package com.gabdanho.hapibi.app
 
 import android.app.Application
 import com.vk.id.VKID

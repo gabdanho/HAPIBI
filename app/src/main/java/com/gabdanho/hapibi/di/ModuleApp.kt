@@ -1,11 +1,11 @@
 package com.gabdanho.hapibi.di
 
 import android.content.Context
-import com.gabdanho.hapibi.data.local.datasource.UserTokenDataProvider
-import com.gabdanho.hapibi.data.local.repository.UserTokenDataRepository
-import com.gabdanho.hapibi.data.local.repository.UserTokenDataRepositoryImpl
-import com.gabdanho.hapibi.data.remote.repository.AimlapiService
-import com.gabdanho.hapibi.data.remote.repository.VkApiService
+import com.gabdanho.hapibi.data.local.datasource.AccessTokenSharedPreferences
+import com.gabdanho.hapibi.data.local.security.KeyStoreManager
+import com.gabdanho.hapibi.data.remote.api.AiService
+import com.gabdanho.hapibi.data.remote.api.VkApiService
+import com.gabdanho.hapibi.domain.interfaces.repository.local.AccessTokenDataSource
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 private const val BASE_URL_VK = "https://api.vk.com"
@@ -28,27 +27,22 @@ object ModuleApp {
 
     @Provides
     @Singleton
-    fun provideUserTokenDataProvider(
-        @ApplicationContext appContext: Context
-    ): UserTokenDataProvider {
-        return UserTokenDataProvider(appContext)
+    fun provideUserTokenDataProvider(): KeyStoreManager = KeyStoreManager()
+
+    @Provides
+    @Singleton
+    fun provideAccessTokenDataSource(
+        @ApplicationContext context: Context,
+        keyStoreManager: KeyStoreManager
+    ): AccessTokenDataSource {
+        return AccessTokenSharedPreferences(context = context, keyStoreManager = keyStoreManager)
     }
 
     @Provides
     @Singleton
-    fun provideEncryptedSharedPreferences(
-        dataProvider: UserTokenDataProvider
-    ): UserTokenDataRepository {
-        return UserTokenDataRepositoryImpl(dataProvider.sharedPreferences)
-    }
-
-    @Provides
-    @Singleton
-    @Named("vkApi")
+    @VkApi
     fun provideVkApiRetrofit(): Retrofit {
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
+        val gson = GsonBuilder().create()
 
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -67,19 +61,11 @@ object ModuleApp {
 
     @Provides
     @Singleton
-    fun provideVkApiService(@Named("vkApi") retrofit: Retrofit): VkApiService {
-        return retrofit.create(VkApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    @Named("openAIApi")
+    @AiApi
     fun provideOpenAIRetrofit(): Retrofit {
         val apiKey = "zu-b22684747c405ec01193a54729f39718"
 
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
+        val gson = GsonBuilder().create()
 
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -103,7 +89,13 @@ object ModuleApp {
 
     @Provides
     @Singleton
-    fun provideOpenAiService(@Named("openAIApi") retrofit: Retrofit): AimlapiService {
-        return retrofit.create(AimlapiService::class.java)
+    fun provideVkApiService(@VkApi retrofit: Retrofit): VkApiService {
+        return retrofit.create(VkApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAiService(@AiApi retrofit: Retrofit): AiService {
+        return retrofit.create(AiService::class.java)
     }
 }

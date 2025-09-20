@@ -19,6 +19,7 @@ coilCompose = "2.7.0"
 vkSdk = "2.2.2"
 vkManifest = "1.1.0"
 ksp = "2.1.10-1.0.29"
+serializationVersion = "1.8.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
@@ -49,6 +50,7 @@ vk-sdk-support = { module = "com.vk.id:vk-sdk-support", version.ref = "vkSdk" }
 vkid = { module = "com.vk.id:vkid", version.ref = "vkSdk" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -57,3 +59,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 hilt-compiler = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 vkid-manifest = { id = "vkid.manifest.placeholders", version.ref = "vkManifest" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

@@ -1,0 +1,3 @@
+package com.gabdanho.hapibi.presentation.navigation.model
+
+interface NavigationDestination

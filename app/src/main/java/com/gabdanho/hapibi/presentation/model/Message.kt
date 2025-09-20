@@ -1,6 +1,6 @@
 package com.gabdanho.hapibi.presentation.model
 
 data class Message(
-    val role: String = "",
+    val role: AiRole? = null,
     val content: String = "",
 )

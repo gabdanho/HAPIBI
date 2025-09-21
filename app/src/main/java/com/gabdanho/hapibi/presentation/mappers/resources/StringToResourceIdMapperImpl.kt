@@ -7,7 +7,8 @@ import com.gabdanho.hapibi.presentation.model.StringResNamePresentation
  * идентификаторы из presentation слоя с конкретными ресурсами строк в R.string.
  * Используется для отображения локализованных текстов в UI.
  */
-//class StringToResourceIdMapperImpl : StringToResourceIdMapper {
-//
-//
-//}
+class StringToResourceIdMapperImpl : StringToResourceIdMapper {
+    override fun map(resId: StringResNamePresentation): Int {
+        TODO("Not yet implemented")
+    }
+}

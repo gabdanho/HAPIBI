@@ -46,7 +46,7 @@ class LoginScreenViewModel @Inject constructor(
         _uiState.update { state ->
             state.copy(
                 uiMessage = UiMessage(
-                    message = StringResNamePresentation.ERROR_LOGIN,
+                    textResName = StringResNamePresentation.ERROR_LOGIN,
                     details = details
                 )
             )

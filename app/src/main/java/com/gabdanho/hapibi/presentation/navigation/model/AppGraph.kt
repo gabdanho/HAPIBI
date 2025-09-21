@@ -4,7 +4,7 @@ import com.gabdanho.hapibi.presentation.model.Friend
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class AppGraph {
+sealed class AppGraph : NavigationDestination {
 
     @Serializable
     data object FriendsScreen : AppGraph()

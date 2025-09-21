@@ -1,4 +1,4 @@
-package com.gabdanho.hapibi.ui.theme
+package com.gabdanho.hapibi.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

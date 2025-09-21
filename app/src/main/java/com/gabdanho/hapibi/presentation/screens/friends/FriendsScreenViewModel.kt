@@ -60,7 +60,7 @@ class FriendsScreenViewModel @Inject constructor(
                     _uiState.update { state ->
                         state.copy(
                             uiMessage = UiMessage(
-                                message = StringResNamePresentation.ERROR_TIMEOUT,
+                                textResName = StringResNamePresentation.ERROR_TIMEOUT,
                                 details = result.message
                             ),
                             loadingState = LoadingState.Error
@@ -72,7 +72,7 @@ class FriendsScreenViewModel @Inject constructor(
                     _uiState.update { state ->
                         state.copy(
                             uiMessage = UiMessage(
-                                message = StringResNamePresentation.ERROR_LOGOUT,
+                                textResName = StringResNamePresentation.ERROR_LOGOUT,
                                 details = result.message
                             ),
                             loadingState = LoadingState.Error
@@ -111,7 +111,7 @@ class FriendsScreenViewModel @Inject constructor(
                         _uiState.update { state ->
                             state.copy(
                                 uiMessage = UiMessage(
-                                    message = StringResNamePresentation.ERROR_TIMEOUT,
+                                    textResName = StringResNamePresentation.ERROR_TIMEOUT,
                                     details = result.message
                                 ),
                                 loadingState = LoadingState.Error
@@ -123,7 +123,7 @@ class FriendsScreenViewModel @Inject constructor(
                         _uiState.update { state ->
                             state.copy(
                                 uiMessage = UiMessage(
-                                    message = StringResNamePresentation.ERROR_GET_FRIENDS,
+                                    textResName = StringResNamePresentation.ERROR_GET_FRIENDS,
                                     details = result.message
                                 ),
                                 loadingState = LoadingState.Error

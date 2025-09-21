@@ -21,13 +21,15 @@ fun VkButton(
         containerColor = AzureA100,
         contentColor = Color.White,
     ),
+    enabled: Boolean = true,
     shape: Shape = RoundedCornerShape(10.dp),
 ) {
     Button(
         onClick = onClick,
         shape = shape,
         colors = colors,
-        modifier = modifier
+        modifier = modifier,
+        enabled = enabled,
     ) {
         Text(text = name)
     }

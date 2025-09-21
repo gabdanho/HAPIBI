@@ -11,6 +11,8 @@ data class CongratulationScreenUiState(
     val personStatusInput: String = "",
     val styleInput: String = "",
     val importantWordsInput: String = "",
+    val fixProblemsInput: String = "",
     val loadingState: LoadingState? = null,
-    val isButtonEnabled: Boolean = false,
+    val isGenerateButtonEnabled: Boolean = false,
+    val isFixButtonEnabled: Boolean = false,
 )

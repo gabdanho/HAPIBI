@@ -13,47 +13,78 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.gabdanho.hapibi.presentation.component.FriendCard
-import com.gabdanho.hapibi.presentation.model.UserData
+import com.gabdanho.hapibi.presentation.component.PullToRefreshContainer
+import com.gabdanho.hapibi.presentation.model.Friend
 import com.gabdanho.hapibi.presentation.component.VkLogoutButton
+import com.gabdanho.hapibi.presentation.model.LoadingState
+import com.gabdanho.hapibi.presentation.utils.showUiMessage
 
 @Composable
 fun FriendsScreen(
     modifier: Modifier = Modifier,
-    users: List<UserData>,
-    onLogoutClick: () -> Unit,
-    onCongratButtonClick: (UserData) -> Unit
+    viewModel: FriendsScreenViewModel = hiltViewModel<FriendsScreenViewModel>(),
 ) {
+    val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState.uiMessage) {
+        uiState.uiMessage?.let {
+            context.showUiMessage(
+                uiMessage = it,
+                clearMessage = { viewModel.handleEvent(event = FriendsScreenEvent.ClearMessage) }
+            )
+        }
+    }
+
     Scaffold(
-        topBar = { TopScreenBar(onLogoutClick = onLogoutClick) },
+        topBar = {
+            TopScreenBar(
+                onLogoutClick = { viewModel.handleEvent(event = FriendsScreenEvent.Logout) },
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
         modifier = modifier.windowInsetsPadding(WindowInsets.systemBars)
     ) { innerPadding ->
-        FriendsList(
-            users = users,
-            onClick = onCongratButtonClick,
+        PullToRefreshContainer(
+            isRefreshing = uiState.loadingState is LoadingState.Loading,
+            onRefresh = { viewModel.handleEvent(event = FriendsScreenEvent.UpdateData) },
             modifier = Modifier.padding(innerPadding)
-        )
+        ) {
+            FriendsList(
+                users = uiState.friends,
+                onClick = { viewModel.handleEvent(event = FriendsScreenEvent.OnFriendClick(friend = it)) },
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     }
 }
 
 @Composable
-fun FriendsList(
+private fun FriendsList(
     modifier: Modifier = Modifier,
-    users: List<UserData>,
-    onClick: (UserData) -> Unit
+    users: List<Friend>,
+    onClick: (Friend) -> Unit,
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         items(users) { user ->
             Column {
                 FriendCard(
                     user = user,
-                    isShowButton = true,
-                    onClick = onClick
+                    onClick = onClick,
+                    modifier = Modifier
+                        .padding(bottom = 16.dp, start = 16.dp, end = 16.dp)
+                        .fillMaxWidth()
                 )
             }
         }
@@ -61,28 +92,18 @@ fun FriendsList(
 }
 
 @Composable
-fun TopScreenBar(
+private fun TopScreenBar(
     modifier: Modifier = Modifier,
-    onLogoutClick: () -> Unit
+    onLogoutClick: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     ) {
-        VkLogoutButton(onClick = onLogoutClick)
-    }
-}
-
-@Preview
-@Composable
-private fun FriendsScreenPreview() {
-    FriendCard(
-        user = UserData(
-            imageUrl = "https://sun9-76.userapi.com/impg/LtKVukUG5k3vOQCkk8RTyAGkEmrH34geTz3A6Q/mzT_yti1W84.jpg?size=604x604&quality=95&sign=df0eed2b2a5be62517033a2b51b65e22&type=album",
-            firstName = "Bogdan",
-            lastName = "Babenko",
-            birthDay = "15.06.2004"
+        VkLogoutButton(
+            onClick = onLogoutClick,
+            modifier = Modifier.padding(vertical = 8.dp)
         )
-    )
+    }
 }

@@ -20,6 +20,7 @@ vkSdk = "2.2.2"
 vkManifest = "1.1.0"
 ksp = "2.1.10-1.0.29"
 serializationVersion = "1.8.0"
+hiltNavVersion = "1.2.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
@@ -51,6 +52,7 @@ vkid = { module = "com.vk.id:vkid", version.ref = "vkSdk" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationVersion" }
+google-dagger-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

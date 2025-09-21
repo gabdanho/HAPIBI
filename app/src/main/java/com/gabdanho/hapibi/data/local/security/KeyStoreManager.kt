@@ -3,61 +3,69 @@ package com.gabdanho.hapibi.data.local.security
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
-import java.security.KeyPairGenerator
 import java.security.KeyStore
-import java.security.PrivateKey
 import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
 
 class KeyStoreManager {
 
     private val keyStoreType = "AndroidKeyStore"
-    private val alias = "AccessTokenKeyAlias"
-    private val cipherTransformation = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding"
+    private val alias = "AccessTokenAESKeyAlias"
+    private val aesTransformation = "AES/GCM/NoPadding"
 
     init {
-        generateRSAKeyPair()
+        generateAESKey()
     }
 
-    fun generateRSAKeyPair() {
+    private fun generateAESKey() {
         val keyStore = KeyStore.getInstance(keyStoreType).apply { load(null) }
         if (!keyStore.containsAlias(alias)) {
-            val kpg: KeyPairGenerator = KeyPairGenerator.getInstance(
-                KeyProperties.KEY_ALGORITHM_RSA,
+            val keyGenerator = KeyGenerator.getInstance(
+                KeyProperties.KEY_ALGORITHM_AES,
                 keyStoreType
             )
-
             val parameterSpec = KeyGenParameterSpec.Builder(
                 alias,
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
             )
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_OAEP)
-                .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                .setKeySize(256)
                 .build()
 
-            kpg.initialize(parameterSpec)
-            kpg.generateKeyPair()
+            keyGenerator.init(parameterSpec)
+            keyGenerator.generateKey()
         }
     }
 
     fun encrypt(data: String): String {
         val keyStore = KeyStore.getInstance(keyStoreType).apply { load(null) }
-        val publicKey = keyStore.getCertificate(alias).publicKey
+        val secretKey = keyStore.getKey(alias, null) as SecretKey
 
-        val cipher = Cipher.getInstance(cipherTransformation)
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey)
+        val cipher = Cipher.getInstance(aesTransformation)
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+        val iv = cipher.iv
         val encrypted = cipher.doFinal(data.toByteArray(Charsets.UTF_8))
 
-        return Base64.encodeToString(encrypted, Base64.DEFAULT)
+        // Сохраняем IV вместе с шифротекстом
+        val result = iv + encrypted
+        return Base64.encodeToString(result, Base64.DEFAULT)
     }
 
     fun decrypt(encryptedBase64: String): String {
         val keyStore = KeyStore.getInstance(keyStoreType).apply { load(null) }
-        val privateKey = keyStore.getKey(alias, null) as PrivateKey
+        val secretKey = keyStore.getKey(alias, null) as SecretKey
 
-        val cipher = Cipher.getInstance(cipherTransformation)
-        cipher.init(Cipher.DECRYPT_MODE, privateKey)
         val decoded = Base64.decode(encryptedBase64, Base64.DEFAULT)
+        val iv = decoded.copyOfRange(0, 12) // IV всегда первые 12 байт
+        val encrypted = decoded.copyOfRange(12, decoded.size)
 
-        return String(cipher.doFinal(decoded), Charsets.UTF_8)
+        val cipher = Cipher.getInstance(aesTransformation)
+        val spec = GCMParameterSpec(128, iv)
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, spec)
+
+        return String(cipher.doFinal(encrypted), Charsets.UTF_8)
     }
 }

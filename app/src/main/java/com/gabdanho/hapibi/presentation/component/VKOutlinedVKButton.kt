@@ -19,6 +19,7 @@ fun VkOutlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(10.dp),
+    enabled: Boolean = true,
     border: BorderStroke = BorderStroke(4.dp, color = AzureA100),
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = Color.White,
@@ -30,6 +31,7 @@ fun VkOutlinedButton(
         shape = shape,
         border = border,
         colors = colors,
+        enabled = enabled,
         modifier = modifier
     ) {
         Text(text = name)

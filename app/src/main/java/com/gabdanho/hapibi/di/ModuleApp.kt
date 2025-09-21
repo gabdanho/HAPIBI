@@ -5,8 +5,27 @@ import com.gabdanho.hapibi.data.local.datasource.AccessTokenSharedPreferences
 import com.gabdanho.hapibi.data.local.security.KeyStoreManager
 import com.gabdanho.hapibi.data.remote.api.AiService
 import com.gabdanho.hapibi.data.remote.api.VkApiService
+import com.gabdanho.hapibi.data.repository.impl.remote.AiRepositoryImpl
+import com.gabdanho.hapibi.data.repository.impl.remote.SocialNetworkRepositoryImpl
 import com.gabdanho.hapibi.domain.interfaces.repository.local.AccessTokenDataSource
+import com.gabdanho.hapibi.domain.interfaces.repository.remote.AiRepository
+import com.gabdanho.hapibi.domain.interfaces.repository.remote.SocialNetworkRepository
+import com.gabdanho.hapibi.domain.interfaces.usecase.DeleteAccessTokenUseCase
+import com.gabdanho.hapibi.domain.interfaces.usecase.GetAccessTokenUseCase
+import com.gabdanho.hapibi.domain.interfaces.usecase.GetFriendsUseCase
+import com.gabdanho.hapibi.domain.interfaces.usecase.LogoutUseCase
+import com.gabdanho.hapibi.domain.interfaces.usecase.RefreshTokenUseCase
+import com.gabdanho.hapibi.domain.interfaces.usecase.SendPromptUseCase
+import com.gabdanho.hapibi.domain.interfaces.usecase.SetAccessTokenUseCase
+import com.gabdanho.hapibi.domain.usecase.DeleteAccessTokenUseCaseImpl
+import com.gabdanho.hapibi.domain.usecase.GetAccessTokenUseCaseImpl
+import com.gabdanho.hapibi.domain.usecase.GetFriendsUseCaseImpl
+import com.gabdanho.hapibi.domain.usecase.LogoutUseCaseImpl
+import com.gabdanho.hapibi.domain.usecase.RefreshTokenUseCaseImpl
+import com.gabdanho.hapibi.domain.usecase.SendPromptUseCaseImpl
+import com.gabdanho.hapibi.domain.usecase.SetAccessTokenUseCaseImpl
 import com.google.gson.GsonBuilder
+import com.vk.id.VKID
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,12 +37,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL_VK = "https://api.vk.com"
+private const val BASE_URL_VK = "https://api.vk.com/"
 private const val BASE_URL_OPENAI = "https://api.zukijourney.com/v1/"
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ModuleApp {
+
+    @Provides
+    @Singleton
+    fun provideVkId(): VKID = VKID.instance
 
     @Provides
     @Singleton
@@ -33,7 +56,7 @@ object ModuleApp {
     @Singleton
     fun provideAccessTokenDataSource(
         @ApplicationContext context: Context,
-        keyStoreManager: KeyStoreManager
+        keyStoreManager: KeyStoreManager,
     ): AccessTokenDataSource {
         return AccessTokenSharedPreferences(context = context, keyStoreManager = keyStoreManager)
     }
@@ -97,5 +120,62 @@ object ModuleApp {
     @Singleton
     fun provideAiService(@AiApi retrofit: Retrofit): AiService {
         return retrofit.create(AiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAiRepository(aiService: AiService): AiRepository {
+        return AiRepositoryImpl(aiService = aiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSocialNetworkRepository(
+        vkApiService: VkApiService,
+        vkid: VKID,
+    ): SocialNetworkRepository {
+        return SocialNetworkRepositoryImpl(vkApiService = vkApiService, vkid = vkid)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteAccessTokenUseCase(accessTokenDataSource: AccessTokenDataSource): DeleteAccessTokenUseCase {
+        return DeleteAccessTokenUseCaseImpl(accessTokenDataSource = accessTokenDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAccessTokenUseCase(accessTokenDataSource: AccessTokenDataSource): GetAccessTokenUseCase {
+        return GetAccessTokenUseCaseImpl(accessTokenDataSource = accessTokenDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetAccessTokenUseCase(accessTokenDataSource: AccessTokenDataSource): SetAccessTokenUseCase {
+        return SetAccessTokenUseCaseImpl(accessTokenDataSource = accessTokenDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFriendsUseCase(socialNetworkRepository: SocialNetworkRepository): GetFriendsUseCase {
+        return GetFriendsUseCaseImpl(socialNetworkRepository = socialNetworkRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLogoutUseCase(socialNetworkRepository: SocialNetworkRepository): LogoutUseCase {
+        return LogoutUseCaseImpl(socialNetworkRepository = socialNetworkRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRefreshTokenUseCase(socialNetworkRepository: SocialNetworkRepository): RefreshTokenUseCase {
+        return RefreshTokenUseCaseImpl(socialNetworkRepository = socialNetworkRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSendPromptUseCase(aiRepository: AiRepository): SendPromptUseCase {
+        return SendPromptUseCaseImpl(aiRepository = aiRepository)
     }
 }

@@ -249,8 +249,8 @@ private fun PromptResultScreen(
         Card(
             Modifier.padding(AppTheme.dimensions.medium),
             colors = CardDefaults.cardColors(
-                containerColor = AppTheme.colors.white,
-                contentColor = AppTheme.colors.black
+                containerColor = AppTheme.colors.cardContainerColor,
+                contentColor = AppTheme.colors.cardContentColor
             )
         ) {
             CopyableText(text = message, modifier = Modifier.padding(AppTheme.dimensions.medium))

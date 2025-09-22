@@ -90,7 +90,7 @@ object ModuleApp {
     @Singleton
     @AiApi
     fun provideOpenAIRetrofit(): Retrofit {
-        val apiKey = "zu-b22684747c405ec01193a54729f39718"
+        val apiKey = "zu-bd28610fccf0e462e358833e692792fc"
 
         val gson = GsonBuilder().create()
 

@@ -19,8 +19,8 @@ fun VkOutlinedButton(
     enabled: Boolean = true,
     border: BorderStroke = BorderStroke(AppTheme.dimensions.outlinedButtonBorderDp, color = AppTheme.colors.azureA100),
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = AppTheme.colors.white,
-        contentColor = AppTheme.colors.black,
+        containerColor = AppTheme.colors.cardContainerColor,
+        contentColor = AppTheme.colors.cardContentColor,
     ),
 ) {
     Button(

@@ -14,7 +14,7 @@ import java.io.IOException
  * @return Результат [ApiResult]
  */
 suspend fun <T> safeApiCall(
-    timeoutMillis: Long = 10000,
+    timeoutMillis: Long = 30000,
     apiCall: suspend () -> T,
 ): ApiResult<T> {
     return try {

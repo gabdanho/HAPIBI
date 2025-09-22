@@ -32,7 +32,10 @@ class CongratulationScreenViewModel @Inject constructor(
         when (event) {
             is CongratulationScreenEvent.GenerateCongratulation -> generateCongratulation(promptType = CongratulationMessagePromptType.CREATE_CONGRATULATION)
             is CongratulationScreenEvent.UpdateHolidayInput -> updateHolidayInput(value = event.value)
-            is CongratulationScreenEvent.UpdateImportantWordsInput -> updateImportantWordsInput(value = event.value)
+            is CongratulationScreenEvent.UpdateImportantWordsInput -> updateImportantWordsInput(
+                value = event.value
+            )
+
             is CongratulationScreenEvent.UpdateStyleInput -> updateStyleInput(value = event.value)
             is CongratulationScreenEvent.UpdatePersonStatusInput -> updatePersonStatusInput(value = event.value)
             is CongratulationScreenEvent.InitPersonName -> initPersonName(name = event.name)
@@ -45,7 +48,12 @@ class CongratulationScreenViewModel @Inject constructor(
     private fun generateCongratulation(promptType: CongratulationMessagePromptType) {
         viewModelScope.launch {
             val completionRequest = createRequest(promptType = promptType)
-            _uiState.update { state -> state.copy(loadingState = LoadingState.Loading) }
+            _uiState.update { state ->
+                state.copy(
+                    loadingState = LoadingState.Loading,
+                    isGenerateButtonEnabled = false
+                )
+            }
             when (
                 val result = sendPromptUseCase(
                     completionRequest = completionRequest.toDomain()
@@ -201,7 +209,7 @@ class CongratulationScreenViewModel @Inject constructor(
 
     companion object {
         private const val SYSTEM_MESSAGE_TO_CONGRATULATE =
-            "Ты помогаешь составить поздравление с каким-либо праздником для человека. ОТПРАВЛЯЕШЬ ТОЛЬКО ИТОГОВОЕ ПОЗДРАВЛЕНИЕ!!!"
+            "Ты помогаешь составить поздравление с каким-либо праздником для человека. ОТПРАВЛЯЕШЬ ТОЛЬКО ИТОГОВОЕ ПОЗДРАВЛЕНИЕ!!! НЕ ИСПОЛЬЗУЙ В КОНЦЕ [Твое имя] и т.п."
 
         private const val SYSTEM_MESSAGE_TO_FIX_CONGRATULATION =
             "Ты должен исправить недочёты в поздравлении, которые укажет пользователь. Вот поздравление: %s. ОТПРАВЛЯЕШЬ ТОЛЬКО ИЗМЕНЁННОЕ ИТОГОВОЕ ПОЗДРАВЛЕНИЕ!!!"

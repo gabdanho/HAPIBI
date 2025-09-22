@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gabdanho.hapibi.R
+import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
 import com.vk.id.auth.VKIDAuthUiParams
 import com.vk.id.onetap.common.OneTapStyle
@@ -46,7 +46,7 @@ fun LoginScreen(
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = stringResource(R.string.content_app_logo),
-            modifier = Modifier.padding(bottom = 32.dp)
+            modifier = Modifier.padding(bottom = AppTheme.dimensions.large)
         )
         OneTap(
             onAuth = { _, accessToken ->
@@ -60,7 +60,7 @@ fun LoginScreen(
             authParams = VKIDAuthUiParams {
                 scopes = setOf("vkid.personal_info", "friends", "messages")
             },
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = AppTheme.dimensions.small)
         )
     }
 }

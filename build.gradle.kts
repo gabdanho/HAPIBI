@@ -31,7 +31,6 @@ vkidManifestPlaceholders {
         clientSecret = clientSecret,
     )
 
-
     vkidRedirectHost = "vk.com" // vk.com.
     vkidRedirectScheme = "vk${clientId}" // Строго в формате vk{ID приложения}.
     vkidClientId = clientId

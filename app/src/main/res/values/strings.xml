@@ -23,4 +23,5 @@
     <string name="button_congratulate">Поздравить</string>
     <string name="text_connect_to_internet">Не удалось подключиться к сети. Обновите страницу для повторного подключения.</string>
     <string name="content_logout">Logout</string>
+    <string name="text_first_last_name_person">%1$s %2$s</string>
 </resources>

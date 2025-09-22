@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface AiService {
 
-    @POST("/v1/chat/completions")
+    @POST("chat/completions")
     suspend fun generateCongrat(
         @Body request: CompletionRequest
     ): CompletionResponse

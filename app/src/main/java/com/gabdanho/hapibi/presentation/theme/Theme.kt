@@ -1,47 +1,42 @@
 package com.gabdanho.hapibi.presentation.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-    background = MedRosa
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
-
 @Composable
-fun TestVKAPITheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+fun HapibiTheme(
+    content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colors = lightColors
+    val dimensions = defaultDimensions
+    val shapes = defaultShapes
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    ProvideAppUtils(
+        dimensions = dimensions,
+        colors = colors,
+        shapes = shapes
+    ) {
+        MaterialTheme(
+            content = content,
+            colorScheme = lightColorScheme(
+                background = colors.background
+            )
+        )
+    }
+}
+
+object AppTheme {
+
+    val colors: Colors
+        @Composable
+        get() = LocalAppColor.current
+
+    val dimensions: Dimensions
+        @Composable
+        get() = LocalAppDimension.current
+
+    val shapes: Shapes
+        @Composable
+        get() = LocalAppShape.current
 }

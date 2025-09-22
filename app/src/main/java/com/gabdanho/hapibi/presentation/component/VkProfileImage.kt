@@ -10,18 +10,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.gabdanho.hapibi.presentation.theme.AzureA100
+import com.gabdanho.hapibi.presentation.theme.AppTheme
 
 @Composable
 fun VkProfileImage(
     imageUrl: String,
     modifier: Modifier = Modifier,
     shape: Shape = CircleShape,
-    borderWidth: Dp = 5.dp,
-    size: Dp = 200.dp,
-    borderColor: Color = AzureA100,
+    borderWidth: Dp = AppTheme.dimensions.profileImageBorderDp,
+    size: Dp = AppTheme.dimensions.profileImageSize,
+    borderColor: Color = AppTheme.colors.azureA100,
 ) {
     AsyncImage(
         model = imageUrl,

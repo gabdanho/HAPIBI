@@ -19,13 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gabdanho.hapibi.presentation.component.FriendCard
 import com.gabdanho.hapibi.presentation.component.PullToRefreshContainer
 import com.gabdanho.hapibi.presentation.model.Friend
 import com.gabdanho.hapibi.presentation.component.VkLogoutButton
 import com.gabdanho.hapibi.presentation.model.LoadingState
+import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
 
 @Composable
@@ -83,7 +83,7 @@ private fun FriendsList(
                     user = user,
                     onClick = onClick,
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(AppTheme.dimensions.medium)
                         .fillMaxWidth()
                 )
             }
@@ -103,7 +103,7 @@ private fun TopScreenBar(
     ) {
         VkLogoutButton(
             onClick = onLogoutClick,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = AppTheme.dimensions.small)
         )
     }
 }

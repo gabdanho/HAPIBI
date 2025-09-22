@@ -7,8 +7,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import com.gabdanho.hapibi.presentation.theme.AzureA100
+import com.gabdanho.hapibi.presentation.theme.AppTheme
 
 /**
  * Контейнер с Pull-to-Refresh функционалом.
@@ -38,8 +37,8 @@ fun PullToRefreshContainer(
                 Indicator(
                     state = refreshState,
                     isRefreshing = isRefreshing,
-                    color = AzureA100,
-                    containerColor = Color.White,
+                    color = AppTheme.colors.azureA100,
+                    containerColor = AppTheme.colors.white,
                     modifier = Modifier.align(Alignment.TopCenter)
                 )
             },

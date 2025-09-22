@@ -12,11 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.model.Friend
+import com.gabdanho.hapibi.presentation.theme.AppTheme
 
 @Composable
 fun FriendCard(
@@ -24,8 +23,8 @@ fun FriendCard(
     modifier: Modifier = Modifier,
     onClick: ((Friend) -> Unit)? = null,
     cardColors: CardColors = CardDefaults.cardColors(
-        containerColor = Color.White,
-        contentColor = Color.Black
+        containerColor = AppTheme.colors.white,
+        contentColor = AppTheme.colors.black
     ),
 ) {
     Card(
@@ -33,15 +32,21 @@ fun FriendCard(
         colors = cardColors
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = AppTheme.dimensions.medium)
         ) {
             VkProfileImage(
                 imageUrl = user.imageUrl
             )
             Text(
-                text = "${user.firstName} ${user.lastName}",
+                text = stringResource(
+                    R.string.text_first_last_name_person,
+                    user.firstName,
+                    user.lastName
+                ),
                 style = MaterialTheme.typography.headlineSmall
             )
             if (user.birthDayDate.isNotBlank()) {

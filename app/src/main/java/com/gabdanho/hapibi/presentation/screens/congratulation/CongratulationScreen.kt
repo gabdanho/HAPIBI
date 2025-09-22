@@ -1,13 +1,11 @@
 package com.gabdanho.hapibi.presentation.screens.congratulation
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -23,12 +21,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.component.FriendCard
@@ -37,7 +33,7 @@ import com.gabdanho.hapibi.presentation.component.VkButton
 import com.gabdanho.hapibi.presentation.component.VkOutlinedButton
 import com.gabdanho.hapibi.presentation.model.Friend
 import com.gabdanho.hapibi.presentation.model.LoadingState
-import com.gabdanho.hapibi.presentation.theme.AzureA100
+import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
 
 @Composable
@@ -86,7 +82,7 @@ fun CongratulationScreen(
                 FriendCard(
                     user = friendData,
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(AppTheme.dimensions.medium)
                         .fillMaxWidth()
                 )
 
@@ -102,7 +98,7 @@ fun CongratulationScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = AppTheme.dimensions.medium)
                 )
                 PromptParameter(
                     name = stringResource(R.string.text_person_status),
@@ -116,7 +112,7 @@ fun CongratulationScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = AppTheme.dimensions.medium)
                 )
                 PromptParameter(
                     name = stringResource(R.string.text_style_congratulation),
@@ -130,7 +126,7 @@ fun CongratulationScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = AppTheme.dimensions.medium)
                 )
                 PromptParameter(
                     name = stringResource(R.string.text_important_words),
@@ -144,7 +140,7 @@ fun CongratulationScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = AppTheme.dimensions.medium)
                 )
 
                 Row(
@@ -157,7 +153,7 @@ fun CongratulationScreen(
                         },
                         name = stringResource(R.string.button_generate),
                         enabled = uiState.isGenerateButtonEnabled,
-                        modifier = Modifier.padding(vertical = 8.dp)
+                        modifier = Modifier.padding(vertical = AppTheme.dimensions.small)
                     )
                 }
 
@@ -184,9 +180,9 @@ fun CongratulationScreen(
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(AppTheme.dimensions.medium)
                         ) {
-                            CircularProgressIndicator(color = AzureA100)
+                            CircularProgressIndicator(color = AppTheme.colors.azureA100)
                         }
                     }
 
@@ -195,7 +191,7 @@ fun CongratulationScreen(
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(AppTheme.dimensions.medium)
                         ) {
                             Text(text = stringResource(R.string.error_cant_generate_refresh_screen))
                         }
@@ -219,20 +215,19 @@ private fun PromptParameter(
     Column(modifier = modifier) {
         Text(
             text = name,
-            modifier = Modifier.padding(end = 8.dp)
+            modifier = Modifier.padding(end = AppTheme.dimensions.small)
         )
         TextField(
             value = value,
             onValueChange = {
                 onValueChange(it)
             },
-            shape = RoundedCornerShape(20.dp),
             singleLine = true,
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Black,
-                focusedIndicatorColor = Color.Black
+                unfocusedContainerColor = AppTheme.colors.transparent,
+                focusedContainerColor = AppTheme.colors.transparent,
+                unfocusedIndicatorColor = AppTheme.colors.black,
+                focusedIndicatorColor = AppTheme.colors.black
             ),
             modifier = Modifier.fillMaxWidth()
         )
@@ -252,13 +247,13 @@ private fun PromptResultScreen(
 
     Column(modifier = modifier) {
         Card(
-            Modifier.padding(16.dp),
+            Modifier.padding(AppTheme.dimensions.medium),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White,
-                contentColor = Color.Black
+                containerColor = AppTheme.colors.white,
+                contentColor = AppTheme.colors.black
             )
         ) {
-            CopyableText(text = message, modifier = Modifier.padding(16.dp))
+            CopyableText(text = message, modifier = Modifier.padding(AppTheme.dimensions.medium))
         }
         PromptParameter(
             name = stringResource(R.string.text_fix_problems),
@@ -266,7 +261,7 @@ private fun PromptResultScreen(
             onValueChange = { updateChangeFixCongratulationInput(it) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = AppTheme.dimensions.medium)
         )
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -276,11 +271,11 @@ private fun PromptResultScreen(
             VkButton(
                 onClick = { clipboardManager.setText(AnnotatedString(message)) },
                 name = stringResource(R.string.text_copy_text),
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = AppTheme.dimensions.small)
             )
             Text(
                 text = stringResource(R.string.text_or),
-                modifier = Modifier.padding(horizontal = 8.dp)
+                modifier = Modifier.padding(horizontal = AppTheme.dimensions.small)
             )
             VkOutlinedButton(
                 onClick = {
@@ -288,7 +283,7 @@ private fun PromptResultScreen(
                 },
                 name = stringResource(R.string.button_fix),
                 enabled = isButtonEnabled,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = AppTheme.dimensions.small)
             )
         }
     }

@@ -23,8 +23,8 @@ fun FriendCard(
     modifier: Modifier = Modifier,
     onClick: ((Friend) -> Unit)? = null,
     cardColors: CardColors = CardDefaults.cardColors(
-        containerColor = AppTheme.colors.white,
-        contentColor = AppTheme.colors.black
+        containerColor = AppTheme.colors.cardContainerColor,
+        contentColor = AppTheme.colors.cardContentColor
     ),
 ) {
     Card(

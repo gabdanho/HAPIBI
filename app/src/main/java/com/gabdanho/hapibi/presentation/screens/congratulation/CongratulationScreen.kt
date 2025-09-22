@@ -226,10 +226,10 @@ private fun PromptParameter(
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = AppTheme.colors.transparent,
                 focusedContainerColor = AppTheme.colors.transparent,
-                unfocusedIndicatorColor = AppTheme.colors.black,
-                focusedIndicatorColor = AppTheme.colors.black
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .padding(bottom = AppTheme.dimensions.small)
+                .fillMaxWidth()
         )
     }
 }

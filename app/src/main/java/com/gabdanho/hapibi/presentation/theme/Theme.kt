@@ -1,14 +1,16 @@
 package com.gabdanho.hapibi.presentation.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 @Composable
 fun HapibiTheme(
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val colors = lightColors
+    val colors = if (useDarkTheme) darkColors else lightColors
     val dimensions = defaultDimensions
     val shapes = defaultShapes
 
@@ -20,7 +22,10 @@ fun HapibiTheme(
         MaterialTheme(
             content = content,
             colorScheme = lightColorScheme(
-                background = colors.background
+                background = colors.background,
+                onBackground = colors.onBackground,
+                primary = colors.primary,
+                onSurface = colors.onSurface
             )
         )
     }

@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Test VK API</string>
+
+    <string name="content_app_logo">App Logo</string>
+
+    <string name="text_whats_holiday">Какой праздник:</string>
+    <string name="text_person_status">Кто для Вас этот человек:</string>
+    <string name="text_style_congratulation">Стиль поздравления:</string>
+    <string name="text_important_words">Обязательные слова:</string>
+    <string name="text_fix_problems">Исправить недочёты:</string>
+    <string name="text_copy_text">Скопировать</string>
+    <string name="text_or">или</string>
+
+    <string name="button_generate">Сгенерировать</string>
+    <string name="button_fix">Исправить</string>
+
+    <string name="error_cant_generate_refresh_screen">Не удалось сгенерировать поздравление. Обновите страницу для повторной попытки</string>
+    <string name="error_timeout">Превышено время ожидания</string>
+    <string name="error_ai_response">Не удалось сгенерировать ответ</string>
+    <string name="error_get_friends">Не удалось получить список друзей</string>
+    <string name="error_logout">Не удалось выйти из аккаунта</string>
+    <string name="error_login">Не удалось авторизоваться в приложение</string>
+    <string name="button_congratulate">Поздравить</string>
+    <string name="text_connect_to_internet">Не удалось подключиться к сети. Обновите страницу для повторного подключения.</string>
+    <string name="content_logout">Logout</string>
 </resources>

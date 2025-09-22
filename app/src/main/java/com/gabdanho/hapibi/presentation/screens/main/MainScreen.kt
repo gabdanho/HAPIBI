@@ -9,7 +9,6 @@ import com.gabdanho.hapibi.presentation.navigation.NavigationAction
 import com.gabdanho.hapibi.presentation.navigation.ObserveAsEvents
 import com.gabdanho.hapibi.presentation.navigation.appGraph
 import com.gabdanho.hapibi.presentation.navigation.model.AppGraph
-import com.vk.id.VKID
 
 /**
  * Главный экран приложения, содержащий навигационный хост.
@@ -21,7 +20,7 @@ fun MainScreen(
     viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>()
 ) {
     val navigator = viewModel.navigator
-    val isAuthorized = VKID.instance.accessToken != null
+    val isAuthorized = viewModel.isUserAuthorized()
     val startDestination = if (isAuthorized) AppGraph.FriendsScreen else AppGraph.LoginScreen
     val navController = rememberNavController()
 

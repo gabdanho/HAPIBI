@@ -9,5 +9,5 @@ interface SocialNetworkRepository {
 
     suspend fun logout(): ApiResult<Boolean>
 
-    suspend fun refreshToken(): ApiResult<String>
+    suspend fun refreshToken(): ApiResult<String?>
 }

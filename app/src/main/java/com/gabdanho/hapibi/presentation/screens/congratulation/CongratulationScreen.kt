@@ -10,12 +10,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,15 +26,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.component.FriendCard
 import com.gabdanho.hapibi.presentation.component.PullToRefreshContainer
 import com.gabdanho.hapibi.presentation.component.VkButton
 import com.gabdanho.hapibi.presentation.component.VkOutlinedButton
 import com.gabdanho.hapibi.presentation.model.Friend
 import com.gabdanho.hapibi.presentation.model.LoadingState
+import com.gabdanho.hapibi.presentation.theme.AzureA100
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
 
 @Composable
@@ -66,12 +66,15 @@ fun CongratulationScreen(
     Scaffold { innerPadding ->
         PullToRefreshContainer(
             isRefreshing = uiState.loadingState is LoadingState.Loading,
+            enabled = uiState.loadingState is LoadingState.Error,
             onRefresh = {
-                viewModel.handleEvent(
-                    event = if (uiState.fixProblemsInput.isNotBlank())
-                        CongratulationScreenEvent.FixCongratulation
-                    else CongratulationScreenEvent.GenerateCongratulation
-                )
+                if (uiState.loadingState == LoadingState.Error) {
+                    viewModel.handleEvent(
+                        event = if (uiState.fixProblemsInput.isNotBlank())
+                            CongratulationScreenEvent.FixCongratulation
+                        else CongratulationScreenEvent.GenerateCongratulation
+                    )
+                }
             },
             modifier = Modifier.padding(innerPadding)
         ) {
@@ -88,7 +91,7 @@ fun CongratulationScreen(
                 )
 
                 PromptParameter(
-                    name = "Какой праздник:",
+                    name = stringResource(R.string.text_whats_holiday),
                     value = uiState.holidayInput,
                     onValueChange = {
                         viewModel.handleEvent(
@@ -102,7 +105,7 @@ fun CongratulationScreen(
                         .padding(horizontal = 16.dp)
                 )
                 PromptParameter(
-                    name = "Кто для Вас этот человек:",
+                    name = stringResource(R.string.text_person_status),
                     value = uiState.personStatusInput,
                     onValueChange = {
                         viewModel.handleEvent(
@@ -116,7 +119,7 @@ fun CongratulationScreen(
                         .padding(horizontal = 16.dp)
                 )
                 PromptParameter(
-                    name = "Стиль поздравления:",
+                    name = stringResource(R.string.text_style_congratulation),
                     value = uiState.styleInput,
                     onValueChange = {
                         viewModel.handleEvent(
@@ -130,7 +133,7 @@ fun CongratulationScreen(
                         .padding(horizontal = 16.dp)
                 )
                 PromptParameter(
-                    name = "Обязательные слова:",
+                    name = stringResource(R.string.text_important_words),
                     value = uiState.importantWordsInput,
                     onValueChange = {
                         viewModel.handleEvent(
@@ -152,7 +155,7 @@ fun CongratulationScreen(
                         onClick = {
                             viewModel.handleEvent(event = CongratulationScreenEvent.GenerateCongratulation)
                         },
-                        name = "Сгенерировать",
+                        name = stringResource(R.string.button_generate),
                         enabled = uiState.isGenerateButtonEnabled,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
@@ -181,9 +184,9 @@ fun CongratulationScreen(
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 8.dp)
+                                .padding(16.dp)
                         ) {
-                            CircularProgressIndicator()
+                            CircularProgressIndicator(color = AzureA100)
                         }
                     }
 
@@ -192,9 +195,9 @@ fun CongratulationScreen(
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 8.dp)
+                                .padding(16.dp)
                         ) {
-                            Text(text = "Не удалось сгенерировать поздравление. Обновите страницу для повторной попытки")
+                            Text(text = stringResource(R.string.error_cant_generate_refresh_screen))
                         }
                     }
 
@@ -212,12 +215,8 @@ private fun PromptParameter(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isError: Boolean = false,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
+    Column(modifier = modifier) {
         Text(
             text = name,
             modifier = Modifier.padding(end = 8.dp)
@@ -235,13 +234,7 @@ private fun PromptParameter(
                 unfocusedIndicatorColor = Color.Black,
                 focusedIndicatorColor = Color.Black
             ),
-            trailingIcon = {
-                if (isError) Icon(
-                    imageVector = Icons.Filled.Warning,
-                    contentDescription = "Необходимо заполнить поле"
-                )
-            },
-            modifier = Modifier.weight(3f)
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -268,7 +261,7 @@ private fun PromptResultScreen(
             CopyableText(text = message, modifier = Modifier.padding(16.dp))
         }
         PromptParameter(
-            name = "Исправить недочёты:",
+            name = stringResource(R.string.text_fix_problems),
             value = fixProblemsInput,
             onValueChange = { updateChangeFixCongratulationInput(it) },
             modifier = Modifier
@@ -282,18 +275,18 @@ private fun PromptResultScreen(
         ) {
             VkButton(
                 onClick = { clipboardManager.setText(AnnotatedString(message)) },
-                name = "Скопировать",
+                name = stringResource(R.string.text_copy_text),
                 modifier = Modifier.padding(vertical = 8.dp)
             )
             Text(
-                text = "или",
+                text = stringResource(R.string.text_or),
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
             VkOutlinedButton(
                 onClick = {
                     changeCongratulation()
                 },
-                name = "Исправить",
+                name = stringResource(R.string.button_fix),
                 enabled = isButtonEnabled,
                 modifier = Modifier.padding(vertical = 8.dp)
             )

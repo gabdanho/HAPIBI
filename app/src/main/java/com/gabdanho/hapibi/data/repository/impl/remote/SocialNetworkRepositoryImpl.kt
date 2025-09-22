@@ -45,9 +45,9 @@ class SocialNetworkRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun refreshToken(): ApiResult<String> {
+    override suspend fun refreshToken(): ApiResult<String?> {
         return safeApiCall {
-            val deferred = CompletableDeferred<String>()
+            val deferred = CompletableDeferred<String?>()
 
             vkid.refreshToken(
                 callback = object : VKIDRefreshTokenCallback {
@@ -56,7 +56,7 @@ class SocialNetworkRepositoryImpl @Inject constructor(
                     }
 
                     override fun onFail(fail: VKIDRefreshTokenFail) {
-                        deferred.completeExceptionally(Exception(fail.description))
+                        deferred.complete(null)
                     }
                 }
             )

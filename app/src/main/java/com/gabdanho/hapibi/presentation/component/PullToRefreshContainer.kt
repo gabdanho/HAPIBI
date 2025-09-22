@@ -24,25 +24,28 @@ fun PullToRefreshContainer(
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val refreshState = rememberPullToRefreshState()
+    if (enabled) {
+        val refreshState = rememberPullToRefreshState()
 
-    PullToRefreshBox(
-        isRefreshing = isRefreshing,
-        state = refreshState,
-        onRefresh = onRefresh,
-        indicator = {
-            Indicator(
-                state = refreshState,
-                isRefreshing = isRefreshing,
-                color = AzureA100,
-                containerColor = Color.White,
-                modifier = Modifier.align(Alignment.TopCenter)
-            )
-        },
-        modifier = modifier
-    ) {
-        content()
-    }
+        PullToRefreshBox(
+            isRefreshing = isRefreshing,
+            state = refreshState,
+            onRefresh = onRefresh,
+            indicator = {
+                Indicator(
+                    state = refreshState,
+                    isRefreshing = isRefreshing,
+                    color = AzureA100,
+                    containerColor = Color.White,
+                    modifier = Modifier.align(Alignment.TopCenter)
+                )
+            },
+            modifier = modifier
+        ) {
+            content()
+        }
+    } else content()
 }

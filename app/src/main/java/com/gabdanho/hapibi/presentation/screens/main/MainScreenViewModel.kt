@@ -1,6 +1,7 @@
 package com.gabdanho.hapibi.presentation.screens.main
 
 import androidx.lifecycle.ViewModel
+import com.gabdanho.hapibi.domain.interfaces.usecase.GetAccessTokenUseCase
 import com.gabdanho.hapibi.presentation.navigation.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,4 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     val navigator: Navigator,
-) : ViewModel()
+    val getAccessTokenUseCase: GetAccessTokenUseCase,
+) : ViewModel() {
+
+    fun isUserAuthorized() = getAccessTokenUseCase() != null
+}

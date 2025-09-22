@@ -13,14 +13,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.model.Friend
 
 @Composable
 fun FriendCard(
     user: Friend,
     modifier: Modifier = Modifier,
-    onClick: (Friend) -> Unit = { },
+    onClick: ((Friend) -> Unit)? = null,
     cardColors: CardColors = CardDefaults.cardColors(
         containerColor = Color.White,
         contentColor = Color.Black
@@ -31,13 +33,12 @@ fun FriendCard(
         colors = cardColors
     ) {
         Column(
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
         ) {
             VkProfileImage(
-                imageUrl = user.imageUrl,
-                modifier = Modifier.padding(vertical = 16.dp)
+                imageUrl = user.imageUrl
             )
             Text(
                 text = "${user.firstName} ${user.lastName}",
@@ -46,15 +47,15 @@ fun FriendCard(
             if (user.birthDayDate.isNotBlank()) {
                 Text(
                     text = user.birthDayDate,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(vertical = 16.dp)
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
-            VkButton(
-                onClick = { onClick(user) },
-                name = "Поздравить",
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            if (onClick != null) {
+                VkButton(
+                    onClick = { onClick(user) },
+                    name = stringResource(R.string.button_congratulate)
+                )
+            }
         }
     }
 }

@@ -55,7 +55,14 @@ class CongratulationScreenViewModel @Inject constructor(
                     _uiState.update { state ->
                         state.copy(
                             finishedCongratulation = result.data,
-                            loadingState = LoadingState.Success
+                            loadingState = LoadingState.Success,
+                            styleInput = "",
+                            personStatusInput = "",
+                            importantWordsInput = "",
+                            holidayInput = "",
+                            fixProblemsInput = "",
+                            isGenerateButtonEnabled = false,
+                            isFixButtonEnabled = false
                         )
                     }
                 }
@@ -90,37 +97,37 @@ class CongratulationScreenViewModel @Inject constructor(
     private fun updateHolidayInput(value: String) {
         _uiState.update { state ->
             state.copy(
-                holidayInput = value,
-                isGenerateButtonEnabled = isAllFieldsFilled()
+                holidayInput = value
             )
         }
+        isAllFieldsFilled()
     }
 
     private fun updatePersonStatusInput(value: String) {
         _uiState.update { state ->
             state.copy(
-                personStatusInput = value,
-                isGenerateButtonEnabled = isAllFieldsFilled()
+                personStatusInput = value
             )
         }
+        isAllFieldsFilled()
     }
 
     private fun updateStyleInput(value: String) {
         _uiState.update { state ->
             state.copy(
-                styleInput = value,
-                isGenerateButtonEnabled = isAllFieldsFilled()
+                styleInput = value
             )
         }
+        isAllFieldsFilled()
     }
 
     private fun updateImportantWordsInput(value: String) {
         _uiState.update { state ->
             state.copy(
-                importantWordsInput = value,
-                isGenerateButtonEnabled = isAllFieldsFilled()
+                importantWordsInput = value
             )
         }
+        isAllFieldsFilled()
     }
 
     private fun updateFixProblemsInput(value: String) {
@@ -183,11 +190,13 @@ class CongratulationScreenViewModel @Inject constructor(
         )
     }
 
-    private fun isAllFieldsFilled(): Boolean {
+    private fun isAllFieldsFilled() {
         val state = _uiState.value
 
-        return state.holidayInput.isNotBlank() && state.styleInput.isNotBlank()
+        val isFilled = state.holidayInput.isNotBlank() && state.styleInput.isNotBlank()
                 && state.personStatusInput.isNotBlank() && state.importantWordsInput.isNotBlank()
+
+        _uiState.update { state -> state.copy(isGenerateButtonEnabled = isFilled) }
     }
 
     companion object {

@@ -2,6 +2,7 @@ package com.gabdanho.hapibi.presentation.screens.friends
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gabdanho.hapibi.domain.interfaces.usecase.DeleteAccessTokenUseCase
 import com.gabdanho.hapibi.domain.interfaces.usecase.GetAccessTokenUseCase
 import com.gabdanho.hapibi.domain.interfaces.usecase.GetFriendsUseCase
 import com.gabdanho.hapibi.domain.interfaces.usecase.LogoutUseCase
@@ -28,6 +29,7 @@ class FriendsScreenViewModel @Inject constructor(
     private val getFriendsUseCase: GetFriendsUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
+    private val deleteAccessTokenUseCase: DeleteAccessTokenUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FriendsScreenUiState())
@@ -50,6 +52,7 @@ class FriendsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = logoutUseCase()) {
                 is ApiResult.Success -> {
+                    deleteAccessTokenUseCase()
                     navigator.navigate(
                         destination = AppGraph.LoginScreen,
                         navOptions = { popUpTo(0) { inclusive } }

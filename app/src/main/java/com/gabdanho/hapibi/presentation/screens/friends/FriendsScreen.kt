@@ -83,7 +83,7 @@ private fun FriendsList(
                     user = user,
                     onClick = onClick,
                     modifier = Modifier
-                        .padding(bottom = 16.dp, start = 16.dp, end = 16.dp)
+                        .padding(16.dp)
                         .fillMaxWidth()
                 )
             }

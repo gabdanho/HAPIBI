@@ -4,5 +4,5 @@ import com.gabdanho.hapibi.domain.model.ApiResult
 
 interface RefreshTokenUseCase {
 
-    suspend operator fun invoke(): ApiResult<String>
+    suspend operator fun invoke(): ApiResult<String?>
 }

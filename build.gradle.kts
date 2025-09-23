@@ -22,7 +22,7 @@ vkidManifestPlaceholders {
 
         clientId = secretsProperties.getProperty("clientId")
         clientSecret = secretsProperties.getProperty("clientSecret")
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         clientId = "nothing"
         clientSecret = "nothing"
     }

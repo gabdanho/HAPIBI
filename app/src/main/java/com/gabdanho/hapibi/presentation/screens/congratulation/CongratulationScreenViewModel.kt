@@ -87,7 +87,8 @@ class CongratulationScreenViewModel @Inject constructor(
                                 textResName = StringResNamePresentation.ERROR_TIMEOUT,
                                 details = result.message
                             ),
-                            loadingState = LoadingState.Error
+                            loadingState = LoadingState.Error,
+                            isGenerateButtonEnabled = true
                         )
                     }
                 }
@@ -99,7 +100,8 @@ class CongratulationScreenViewModel @Inject constructor(
                                 textResName = StringResNamePresentation.ERROR_AI_RESPONSE,
                                 details = result.message
                             ),
-                            loadingState = LoadingState.Error
+                            loadingState = LoadingState.Error,
+                            isGenerateButtonEnabled = true
                         )
                     }
                 }

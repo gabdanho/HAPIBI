@@ -30,19 +30,20 @@ fun LoginScreen(
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
 
+    LaunchedEffect(uiState.uiMessage) {
+        uiState.uiMessage?.let {
+            context.showUiMessage(
+                uiMessage = it,
+                clearMessage = { viewModel.handleEvent(event = LoginScreenEvent.ClearMessage) }
+            )
+        }
+    }
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        LaunchedEffect(uiState.uiMessage) {
-            uiState.uiMessage?.let {
-                context.showUiMessage(
-                    uiMessage = it,
-                    clearMessage = { viewModel.handleEvent(event = LoginScreenEvent.ClearMessage) }
-                )
-            }
-        }
         Image(
             painter = painterResource(R.drawable.logo),
             contentDescription = stringResource(R.string.content_app_logo),

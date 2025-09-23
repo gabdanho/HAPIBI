@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.gabdanho.hapibi.R
 
 @Composable
-fun InternetConnectionErrorPlaceholder(modifier: Modifier = Modifier) {
+fun InternetLostConnectionErrorPlaceholder(modifier: Modifier = Modifier) {
     val scrollState = rememberScrollState()
 
     Box(modifier = modifier.verticalScroll(scrollState), contentAlignment = Alignment.Center) {

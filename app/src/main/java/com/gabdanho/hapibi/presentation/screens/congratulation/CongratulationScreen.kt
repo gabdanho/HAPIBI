@@ -1,5 +1,6 @@
 package com.gabdanho.hapibi.presentation.screens.congratulation
 
+import android.content.ClipData
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,14 +14,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.component.FriendCard
+import com.gabdanho.hapibi.presentation.component.PromptParameter
 import com.gabdanho.hapibi.presentation.component.PullToRefreshContainer
 import com.gabdanho.hapibi.presentation.component.VkButton
 import com.gabdanho.hapibi.presentation.component.VkOutlinedButton
@@ -35,6 +38,7 @@ import com.gabdanho.hapibi.presentation.model.Friend
 import com.gabdanho.hapibi.presentation.model.LoadingState
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
+import kotlinx.coroutines.launch
 
 @Composable
 fun CongratulationScreen(
@@ -64,13 +68,12 @@ fun CongratulationScreen(
             isRefreshing = uiState.loadingState is LoadingState.Loading,
             enabled = uiState.loadingState is LoadingState.Error,
             onRefresh = {
-                if (uiState.loadingState == LoadingState.Error) {
-                    viewModel.handleEvent(
-                        event = if (uiState.fixProblemsInput.isNotBlank())
-                            CongratulationScreenEvent.FixCongratulation
-                        else CongratulationScreenEvent.GenerateCongratulation
-                    )
-                }
+                viewModel.handleEvent(
+                    event = if (uiState.fixProblemsInput.isNotBlank())
+                        CongratulationScreenEvent.FixCongratulation
+                    else CongratulationScreenEvent.GenerateCongratulation
+                )
+
             },
             modifier = Modifier.padding(innerPadding)
         ) {
@@ -206,35 +209,6 @@ fun CongratulationScreen(
 }
 
 @Composable
-private fun PromptParameter(
-    name: String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = name,
-            modifier = Modifier.padding(end = AppTheme.dimensions.small)
-        )
-        TextField(
-            value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
-            singleLine = true,
-            colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = AppTheme.colors.transparent,
-                focusedContainerColor = AppTheme.colors.transparent,
-            ),
-            modifier = Modifier
-                .padding(bottom = AppTheme.dimensions.small)
-                .fillMaxWidth()
-        )
-    }
-}
-
-@Composable
 private fun PromptResultScreen(
     message: String,
     fixProblemsInput: String,
@@ -243,7 +217,8 @@ private fun PromptResultScreen(
     changeCongratulation: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val clipboardManager = LocalClipboardManager.current
+    val clipboardManager = LocalClipboard.current
+    val coroutineScope = rememberCoroutineScope()
 
     Column(modifier = modifier) {
         Card(
@@ -269,7 +244,7 @@ private fun PromptResultScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             VkButton(
-                onClick = { clipboardManager.setText(AnnotatedString(message)) },
+                onClick = { coroutineScope.launch { clipboardManager.setClipEntry(ClipEntry(ClipData.newPlainText("text", message))) } },
                 name = stringResource(R.string.text_copy_text),
                 modifier = Modifier.padding(vertical = AppTheme.dimensions.small)
             )

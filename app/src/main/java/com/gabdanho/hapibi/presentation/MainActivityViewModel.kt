@@ -42,7 +42,7 @@ class MainActivityViewModel @Inject constructor(
                     else {
                         deleteAccessTokenUseCase()
                     }
-                    _uiState.update { state -> state.copy(isReady = true) }
+                    _uiState.update { state -> state.copy(loadingState = LoadingState.Success) }
                 }
 
                 is ApiResult.Error -> {

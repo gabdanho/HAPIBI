@@ -5,6 +5,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
+/**
+ * Темизация приложения Hapibi.
+ *
+ * @param useDarkTheme Использовать темную тему (по умолчанию берется системная настройка).
+ * @param content Составной контент приложения.
+ */
 @Composable
 fun HapibiTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -31,16 +37,22 @@ fun HapibiTheme(
     }
 }
 
+/**
+ * Объект для доступа к текущей теме приложения (цвета, размеры, формы).
+ */
 object AppTheme {
 
+    /** Текущая цветовая схема. */
     val colors: Colors
         @Composable
         get() = LocalAppColor.current
 
+    /** Текущие размеры UI элементов. */
     val dimensions: Dimensions
         @Composable
         get() = LocalAppDimension.current
 
+    /** Текущие формы UI элементов. */
     val shapes: Shapes
         @Composable
         get() = LocalAppShape.current

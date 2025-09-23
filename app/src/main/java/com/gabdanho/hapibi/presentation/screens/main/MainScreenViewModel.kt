@@ -10,6 +10,7 @@ import javax.inject.Inject
  * ViewModel для [MainScreen].
  *
  * @property navigator Навигатор, который управляет переходами между экранами приложения.
+ * @property getAccessTokenUseCase UseCase для получения access token'а.
  */
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(

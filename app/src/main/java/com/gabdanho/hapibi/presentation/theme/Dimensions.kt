@@ -3,6 +3,9 @@ package com.gabdanho.hapibi.presentation.theme
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * Размеры элементов UI.
+ */
 data class Dimensions(
     val medium: Dp,
     val small: Dp,

@@ -20,6 +20,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel экрана поздравления.
+ *
+ * @property sendPromptUseCase UseCase для отправки запроса на генерацию поздравления.
+ */
 @HiltViewModel
 class CongratulationScreenViewModel @Inject constructor(
     private val sendPromptUseCase: SendPromptUseCase,

@@ -17,6 +17,16 @@ import androidx.compose.ui.unit.Dp
 import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Кнопка выхода из VK с иконкой.
+ *
+ * @param onClick Callback при клике.
+ * @param modifier [Modifier] для кастомизации.
+ * @param size Размер кнопки.
+ * @param shape Форма кнопки.
+ * @param backgroundColor Цвет фона кнопки.
+ * @param tintColor Цвет иконки.
+ */
 @Composable
 fun VkLogoutButton(
     onClick: () -> Unit,

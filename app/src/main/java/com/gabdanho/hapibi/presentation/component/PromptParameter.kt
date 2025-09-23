@@ -8,6 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Поле ввода параметра промпта с подписью и текстовым полем.
+ *
+ * @param name Заголовок параметра.
+ * @param value Текущее значение.
+ * @param onValueChange Callback при изменении текста.
+ * @param modifier [Modifier] для кастомизации контейнера.
+ */
 @Composable
 fun PromptParameter(
     name: String,

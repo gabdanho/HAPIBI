@@ -22,6 +22,12 @@ import com.vk.id.auth.VKIDAuthUiParams
 import com.vk.id.onetap.common.OneTapStyle
 import com.vk.id.onetap.compose.onetap.OneTap
 
+/**
+ * Экран авторизации.
+ *
+ * @param modifier [Modifier] для настройки внешнего вида.
+ * @param viewModel ViewModel для экрана авторизации.
+ */
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,

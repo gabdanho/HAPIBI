@@ -9,6 +9,11 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
+/**
+ * Менеджер для работы с Android Keystore.
+ *
+ * Генерирует AES-ключ, а также обеспечивает шифрование и дешифрование данных.
+ */
 class KeyStoreManager {
 
     private val keyStoreType = "AndroidKeyStore"

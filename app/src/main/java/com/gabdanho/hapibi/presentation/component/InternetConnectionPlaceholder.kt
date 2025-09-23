@@ -11,6 +11,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.gabdanho.hapibi.R
 
+/**
+ * Плейсхолдер ошибки отсутствия интернет-соединения.
+ *
+ * @param modifier [Modifier] для кастомизации контейнера.
+ */
 @Composable
 fun InternetLostConnectionErrorPlaceholder(modifier: Modifier = Modifier) {
     val scrollState = rememberScrollState()

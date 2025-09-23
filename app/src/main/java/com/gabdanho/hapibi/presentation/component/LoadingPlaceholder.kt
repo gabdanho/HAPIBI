@@ -7,6 +7,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Плейсхолдер загрузки с индикатором [CircularProgressIndicator].
+ *
+ * @param modifier [Modifier] для кастомизации контейнера.
+ */
 @Composable
 fun LoadingPlaceholder(modifier: Modifier = Modifier) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {

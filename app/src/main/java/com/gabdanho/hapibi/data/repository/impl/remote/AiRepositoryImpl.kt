@@ -8,10 +8,21 @@ import com.gabdanho.hapibi.domain.model.ApiResult
 import com.gabdanho.hapibi.domain.model.ai.CompletionRequest as CompletionRequestDomain
 import javax.inject.Inject
 
+/**
+ * Репозиторий для взаимодействия с AI сервисом.
+ *
+ * @property aiService API-сервис для отправки запросов в AI модель.
+ */
 class AiRepositoryImpl @Inject constructor(
     private val aiService: AiService
 ) : AiRepository {
 
+    /**
+     * Отправляет промпт в AI сервис и получает сгенерированный ответ.
+     *
+     * @param completionRequest Доменная модель запроса с сообщениями.
+     * @return Результат выполнения [ApiResult] со строкой ответа от AI.
+     */
     override suspend fun sendPrompt(completionRequest: CompletionRequestDomain): ApiResult<String> {
         return safeApiCall {
             var completionRequestData = completionRequest.toData()

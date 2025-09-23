@@ -17,6 +17,15 @@ import com.gabdanho.hapibi.R
 import com.gabdanho.hapibi.presentation.model.Friend
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Карточка друга с фото, имя и фамилиця и (опционально) кнопкой "Поздравить".
+ *
+ * @param user Данные друга.
+ * @param modifier [Modifier] для настройки внешнего вида.
+ * @param onClick Лямбда, вызываемая при нажатии на кнопку "Поздравить".
+ * Если `null`, кнопка не отображается.
+ * @param cardColors Цвета карточки.
+ */
 @Composable
 fun FriendCard(
     user: Friend,

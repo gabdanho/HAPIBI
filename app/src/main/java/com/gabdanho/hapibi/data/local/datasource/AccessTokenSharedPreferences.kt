@@ -7,6 +7,12 @@ import androidx.core.content.edit
 import com.gabdanho.hapibi.domain.interfaces.repository.local.AccessTokenDataSource
 import javax.inject.Inject
 
+/**
+ * Хранилище access token в зашифрованном виде.
+ *
+ * @property preferences SharedPreferences для хранения токена.
+ * @property keyStoreManager Менеджер для шифрования и дешифрования токенов.
+ */
 class AccessTokenSharedPreferences @Inject constructor(
     context: Context,
     private val keyStoreManager: KeyStoreManager

@@ -6,6 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Текстовое поле без рамок с прозрачным фоном и подчеркиванием.
+ *
+ * @param value Текущее значение.
+ * @param onValueChange Callback при изменении текста.
+ * @param modifier [Modifier] для кастомизации.
+ */
 @Composable
 fun UnderlineTextField(
     value: String,

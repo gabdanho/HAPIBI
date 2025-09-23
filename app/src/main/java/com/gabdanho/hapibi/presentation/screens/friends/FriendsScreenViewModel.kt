@@ -23,6 +23,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.collections.map
 
+/**
+ * ViewModel экрана друзей.
+ *
+ * @property navigator Навигатор для перемещения между экранами.
+ * @property getFriendsUseCase UseCase для получения списка друзей.
+ * @property logoutUseCase UseCase для выхода из аккаунта.
+ * @property getAccessTokenUseCase UseCase для получения токена доступа.
+ * @property deleteAccessTokenUseCase UseCase для удаления токена.
+ */
 @HiltViewModel
 class FriendsScreenViewModel @Inject constructor(
     private val navigator: Navigator,

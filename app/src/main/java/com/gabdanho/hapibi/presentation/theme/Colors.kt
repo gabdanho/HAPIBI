@@ -2,6 +2,9 @@ package com.gabdanho.hapibi.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Цветовая схема приложения.
+ */
 data class Colors(
     val azureA100: Color,
     val medRosa: Color,

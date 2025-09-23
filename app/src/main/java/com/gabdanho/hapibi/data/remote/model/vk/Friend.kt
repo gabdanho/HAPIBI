@@ -2,6 +2,18 @@ package com.gabdanho.hapibi.data.remote.model.vk
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Модель друга из VK.
+ *
+ * @property id Уникальный идентификатор пользователя.
+ * @property bdate Дата рождения.
+ * @property trackCode Служебное поле VK.
+ * @property firstName Имя.
+ * @property lastName Фамилия.
+ * @property canAccessClosed Флаг доступа к профилю.
+ * @property isClosed Флаг закрытого профиля.
+ * @property imageUrl Ссылка на аватарку.
+ */
 data class Friend(
     val id: Int = 0,
     val bdate: String = "",

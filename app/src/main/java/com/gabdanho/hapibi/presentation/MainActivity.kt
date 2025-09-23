@@ -26,6 +26,11 @@ import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.theme.HapibiTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Основная Activity приложения Hapibi.
+ *
+ * Отвечает за настройку темы, обработку токена и управление состоянием загрузки.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

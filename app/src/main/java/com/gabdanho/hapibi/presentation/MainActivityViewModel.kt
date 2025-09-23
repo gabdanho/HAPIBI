@@ -15,6 +15,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel для MainActivity.
+ *
+ * Управляет состоянием загрузки, обновлением токена и сохранением/удалением токена.
+ *
+ * @property setAccessTokenUseCase UseCase для сохранения токена.
+ * @property refreshTokenUseCase UseCase для обновления токена.
+ * @property deleteAccessTokenUseCase UseCase для удаления токена.
+ */
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val setAccessTokenUseCase: SetAccessTokenUseCase,

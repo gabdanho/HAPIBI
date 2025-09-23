@@ -3,6 +3,9 @@ package com.gabdanho.hapibi.presentation.theme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
 
+/**
+ * Формы UI элементов приложения.
+ */
 data class Shapes(
     val buttonShape: RoundedCornerShape,
     val logoutButtonShape: RoundedCornerShape,

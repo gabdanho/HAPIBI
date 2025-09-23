@@ -38,6 +38,13 @@ import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
 import kotlinx.coroutines.launch
 
+/**
+ * Экран поздравления друга.
+ *
+ * @param friendData Данные друга, для которого создается поздравление.
+ * @param modifier [Modifier] для настройки внешнего вида.
+ * @param viewModel ViewModel для экрана поздравления.
+ */
 @Composable
 fun CongratulationScreen(
     friendData: Friend,

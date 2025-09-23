@@ -10,6 +10,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Обведённая кнопка в стиле VK.
+ *
+ * @param name Текст кнопки.
+ * @param onClick Callback при клике.
+ * @param modifier [Modifier] для кастомизации.
+ * @param shape Форма кнопки.
+ * @param enabled Включена ли кнопка.
+ * @param border Граница кнопки.
+ * @param colors Цвета кнопки.
+ */
 @Composable
 fun VkOutlinedButton(
     name: String,

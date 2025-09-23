@@ -1,3 +1,4 @@
+import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
@@ -28,11 +29,9 @@ android {
 
         val properties = Properties()
         val secretsFile = rootProject.file("secrets.properties")
-        if (secretsFile.exists()) {
-            properties.load(secretsFile.inputStream())
-        }
-        val apiKey = properties.getProperty("aiApiKey") ?: "default_key"
+        properties.load(FileInputStream(secretsFile))
 
+        val apiKey = properties.getProperty("aiApiKey") ?: "default_key"
         buildConfigField("String", "AI_API_KEY", "\"$apiKey\"")
 
         addManifestPlaceholders(

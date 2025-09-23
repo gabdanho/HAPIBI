@@ -24,6 +24,12 @@ import com.gabdanho.hapibi.presentation.model.LoadingState
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 import com.gabdanho.hapibi.presentation.utils.showUiMessage
 
+/**
+ * Экран списка друзей.
+ *
+ * @param modifier [Modifier] для настройки внешнего вида.
+ * @param viewModel ViewModel для экрана друзей.
+ */
 @Composable
 fun FriendsScreen(
     modifier: Modifier = Modifier,

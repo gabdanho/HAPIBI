@@ -15,17 +15,34 @@ import com.vk.id.refresh.VKIDRefreshTokenFail
 import kotlinx.coroutines.CompletableDeferred
 import javax.inject.Inject
 
+/**
+ * Репозиторий для работы с социальной сетью VK.
+ *
+ * @property vkApiService API-сервис для выполнения сетевых запросов к VK.
+ * @property vkid SDK для работы с VKID (аутентификация, управление сессиями).
+ */
 class SocialNetworkRepositoryImpl @Inject constructor(
     private val vkApiService: VkApiService,
     private val vkid: VKID,
 ) : SocialNetworkRepository {
 
+    /**
+     * Получает список друзей текущего пользователя.
+     *
+     * @param accessToken Токен доступа VK.
+     * @return Результат выполнения [ApiResult] со списком друзей.
+     */
     override suspend fun getFriends(accessToken: String): ApiResult<List<Friend>> {
         return safeApiCall {
             vkApiService.getUserInfo(accessToken = accessToken).response.items.map { friend -> friend.toDomain() }
         }
     }
 
+    /**
+     * Выполняет выход пользователя из VKID.
+     *
+     * @return Результат выполнения [ApiResult], возвращающий `true` при успехе.
+     */
     override suspend fun logout(): ApiResult<Boolean> {
         return safeApiCall {
             val deferred = CompletableDeferred<Boolean>()
@@ -45,6 +62,11 @@ class SocialNetworkRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Обновляет access token через VKID.
+     *
+     * @return Результат выполнения [ApiResult] со строкой токена или `null`, если обновление не удалось.
+     */
     override suspend fun refreshToken(): ApiResult<String?> {
         return safeApiCall {
             val deferred = CompletableDeferred<String?>()

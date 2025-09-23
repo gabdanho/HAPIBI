@@ -13,6 +13,16 @@ import androidx.compose.ui.unit.Dp
 import coil.compose.AsyncImage
 import com.gabdanho.hapibi.presentation.theme.AppTheme
 
+/**
+ * Круглое фото профиля с обводкой.
+ *
+ * @param imageUrl Ссылка на изображение.
+ * @param modifier [Modifier] для кастомизации.
+ * @param shape Форма изображения (по умолчанию — круг).
+ * @param borderWidth Толщина обводки.
+ * @param size Размер изображения.
+ * @param borderColor Цвет обводки.
+ */
 @Composable
 fun VkProfileImage(
     imageUrl: String,

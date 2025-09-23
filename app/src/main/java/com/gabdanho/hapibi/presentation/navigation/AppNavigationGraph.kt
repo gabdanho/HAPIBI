@@ -12,21 +12,26 @@ import com.gabdanho.hapibi.presentation.screens.friends.FriendsScreen
 import com.gabdanho.hapibi.presentation.screens.login.LoginScreen
 import kotlin.reflect.typeOf
 
+/**
+ * Расширение для [NavGraphBuilder] для построения графа навигации приложения.
+ *
+ * @param modifier [Modifier] для передачи в экраны.
+ */
 fun NavGraphBuilder.appGraph(
     modifier: Modifier = Modifier
 ) {
     composable<AppGraph.FriendsScreen> {
-        FriendsScreen()
+        FriendsScreen(modifier = modifier)
     }
 
     composable<AppGraph.LoginScreen> {
-        LoginScreen()
+        LoginScreen(modifier = modifier)
     }
 
     composable<AppGraph.CongratulationScreen>(
         typeMap = mapOf(typeOf<Friend>() to FriendNavType())
     ) {
         val args = it.toRoute<AppGraph.CongratulationScreen>()
-        CongratulationScreen(friendData = args.friendData)
+        CongratulationScreen(friendData = args.friendData, modifier = modifier)
     }
 }

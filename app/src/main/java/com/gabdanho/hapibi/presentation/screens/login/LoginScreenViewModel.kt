@@ -15,6 +15,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel экрана авторизации.
+ *
+ * @property navigator Навигатор для переходов между экранами.
+ * @property setAccessTokenUseCase UseCase для сохранения токена доступа.
+ */
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val navigator: Navigator,
